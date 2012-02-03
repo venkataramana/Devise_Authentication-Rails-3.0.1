@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <title>DeviceExample</title>
+                 <%= stylesheet_link_tag :all %>
+                <%= javascript_include_tag :defaults %>
+                <%= csrf_meta_tag %>
+        </head>
+        <body bgcolor="#FFE8E8">
+                <ul class="hmenu"></ul>
+               <%- flash.each do |name, msg| -%>
+                        <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+                <%- end -%>
+                <div id="user_nav">
+                        <% if user_signed_in? %>
+                        Signed in as <%= current_user.email %>. Not you?
+                                <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+                        <% else %>
+                                 <%= link_to image_tag("signup.jpeg") , new_user_registration_path %> &nbsp; <%= link_to image_tag("login.jpeg"), new_user_session_path %>
+                        <% end %>
+                </div>
+                <%= yield %>
+        </body>
+</html>
+
